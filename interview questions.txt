@@ -189,6 +189,12 @@ resource "aws_instance" "example" {
 }
 ->In this case, even though there's no direct reference to the VPC, the depends_on argument forces Terraform to create the VPC before the EC2 instance.
 
+9) Which parameter do I need to pass in Terraform to avoid displaying sensitive information like a password in the output?
+
+-> Use sensitive = true for outputs to avoid displaying sensitive information.
+-> Mark variables as sensitive to prevent their values from appearing in logs or plans.
+-> Secure your Terraform state file with an encrypted backend.
+
 ###############################################################################################
 
 Linux
