@@ -1,0 +1,322 @@
+#######################################################################################################################3
+AWS Questions
+1) What is AWS? Why is it widely used?
+
+AWS (Amazon Web Services): A cloud platform offering scalable computing power, storage, and services.
+Widely used because:
+Pay-as-you-go pricing.
+Global infrastructure.
+Wide range of services (Compute, Storage, Networking, etc.).
+Scalability and flexibility.
+
+2) What are the main services provided by AWS?
+
+Compute: EC2, Lambda.
+Storage: S3, EBS, Glacier.
+Networking: VPC, Route 53.
+Database: RDS, DynamoDB.
+Security: IAM, KMS, CloudTrail.
+
+3) What is an EC2 instance? How is it used?
+
+EC2: Elastic Compute Cloud, a virtual server in AWS.
+Used for: Hosting applications, running batch jobs, and setting up development/testing environments.
+
+4)What is S3 in AWS, and what are its key features?
+
+S3: Simple Storage Service for object storage.
+Key Features: Durability, scalability, versioning, encryption, and lifecycle management.
+
+5)Difference between S3 Standard, S3 IA, and S3 Glacier?
+
+S3 Standard: Frequent access, high availability, low latency.
+S3 IA: Infrequent Access, lower cost, higher retrieval fees.
+S3 Glacier: Archive storage, very low cost, slower retrieval times.
+
+6)Difference between vertical and horizontal scaling?
+
+Vertical Scaling: Adding resources to a single machine (e.g., CPU, RAM).
+Horizontal Scaling: Adding more machines to distribute the load.
+
+7)What is AWS Lambda, and when would you use it?
+
+AWS Lambda: A serverless compute service to run code without managing servers.
+Use cases: Event-driven workloads, automated backups, and lightweight APIs.
+
+8)What is a security group in AWS? How is it different from a network ACL?
+
+Security Group: Instance-level firewall controlling inbound/outbound traffic.
+Network ACL: Subnet-level firewall.
+Key Difference: Security groups are stateful; ACLs are stateless.
+
+###########################################################################################################
+
+Kubernetes (K8s)
+
+1) K8s architecture
+
+Components:
+Master Node: API Server, Scheduler, Controller Manager, etcd.
+Worker Node: Kubelet, Kube-Proxy, and Pods.
+
+2) Deployment vs. StatefulSet vs. ReplicaSet
+
+Deployment: Manages stateless applications.
+StatefulSet: Manages stateful applications with stable identities.
+ReplicaSet: Ensures a specified number of pod replicas.
+
+3) What is a ConfigMap?
+
+Stores non-sensitive configuration data as key-value pairs, injected into Pods at runtime.
+
+4)Role of etcd in Kubernetes
+
+A distributed key-value store to store cluster configuration and state.
+
+5)How do rolling updates work in a deployment?
+
+Gradually replaces old pods with new ones while ensuring zero downtime.
+
+##############################################################################################################
+
+Docker
+
+1)Structure of a Dockerfile
+
+Common instructions:
+FROM: Base image.
+RUN: Execute commands.
+COPY/ADD: Add files.
+CMD/ENTRYPOINT: Define the container's behavior.
+
+2) How to build a Docker image using a Dockerfile?
+
+bash
+Copy code
+docker build -t <image-name> .
+
+3) Difference between COPY and ADD
+
+COPY: Copies files.
+ADD: Copies files and supports archives and URLs.
+
+###################################################################################################
+
+Terraform
+
+1)What does terraform init do?
+
+Initializes the working directory and downloads provider plugins.
+
+2)How to auto-approve Terraform changes?
+
+bash
+Copy code
+terraform apply -auto-approve
+
+3)Count vs. for_each
+
+Count: Works with an integer.
+for_each: Iterates over a map or set of strings.
+
+4)How to import an existing resource into Terraform?
+
+bash
+Copy code
+terraform import <resource_type.resource_name> <resource_id>
+
+5)Data block in Terraform
+
+Reads external data for use in Terraform configurations.
+
+6)What are provisioners in Terraform?
+
+Execute scripts or configuration management after resource creation.
+
+7)Remote backend
+
+Stores Terraform state remotely (e.g., in S3, Consul).
+
+###############################################################################################
+
+Linux
+
+1) Check installed packages
+
+bash
+Copy code
+dpkg -l # (Debian/Ubuntu)
+rpm -qa # (RedHat/CentOS)
+
+2) Check kernel version
+
+bash
+Copy code
+uname -r
+
+3) Create a new user and add as sudo
+
+bash
+Copy code
+sudo adduser <username>
+sudo usermod -aG sudo <username>
+
+4) Check and stop process "a"
+
+bash
+Copy code
+pgrep a
+pkill a
+
+5) List files less than 5MB
+
+bash
+Copy code
+find . -type f -size -5M
+
+6) Hard link vs. Soft link
+
+Hard link: Direct reference to file content.
+Soft link: Points to the file path.
+
+7) Disk space and RAM usage
+
+bash
+Copy code
+df -h   # Disk space
+free -h # RAM usage
+
+###################################################################################################
+
+Git
+
+1) What is Git? Why is it used?
+
+A version control system to track and manage code changes.
+
+2) Git vs. GitHub
+
+Git: Local version control.
+GitHub: Cloud hosting for Git repositories.
+
+3) Initialize a Git repository
+
+bash
+Copy code
+git init
+
+4) Git pull vs. fetch
+
+Pull: Fetch + merge.
+Fetch: Downloads updates but doesn't merge.
+
+5) Check repository status
+
+bash
+Copy code
+git status
+
+6) Git add vs. commit
+
+Add: Stages changes.
+Commit: Saves changes to the repository.
+
+7) Create a branch
+
+bash
+Copy code
+git branch <branch-name>
+git checkout <branch-name>
+
+8) Check commit history
+
+bash
+Copy code
+git log
+
+9) Staging area
+
+Temporary area for changes before committing.
+
+10) Delete a branch
+
+bash
+Copy code
+git branch -d <branch-name>
+CI/CD
+
+11) Types of pipelines in Jenkins
+
+Freestyle, Declarative, Scripted, Multibranch.
+
+12)Scripted vs. Declarative pipeline
+
+Scripted: Imperative and flexible.
+Declarative: YAML-like structure, easier to use.
+
+13) Artifactory vs. S3 for artifacts
+
+Artifactory: Optimized for artifacts with versioning and metadata.
+S3: General-purpose storage.
+
+14) Upgrade plugins in Jenkins
+
+Manage Jenkins -> Plugin Manager -> Updates.
+
+15) User management in Jenkins
+
+Add/manage users via the security realm settings.
+
+16) GitLab Runners
+
+Execute CI/CD jobs for GitLab projects.
+
+17) Upgrade Jenkins
+
+Download and replace the WAR file or use package manager commands.
+
+#####################################################################################################
+
+Ansible
+
+1) Loops in Ansible
+
+Example:
+yaml
+Copy code
+- name: Install packages
+  apt:
+    name: "{{ item }}"
+  loop:
+    - nginx
+    - git
+
+2) Ansible Roles
+
+Logical folder structure to organize playbooks (tasks, variables, templates).
+
+3) Is Ansible idempotent?
+
+Yes, it ensures tasks produce the same result even if run multiple times.
+
+4) Ansible script to install nginx
+
+yaml
+Copy code
+- name: Install Nginx
+  hosts: all
+  tasks:
+    - name: Install Nginx
+      apt:
+        name: nginx
+        state: present
+
+5) Conditionals in Ansible
+
+Example:
+yaml
+Copy code
+- name: Install Nginx only if on Ubuntu
+  apt:
+    name: nginx
+  when: ansible_os_family == "Debian"
