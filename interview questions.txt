@@ -137,6 +137,58 @@ Execute scripts or configuration management after resource creation.
 
 Stores Terraform state remotely (e.g., in S3, Consul).
 
+8) How do you ensure that a VPC is created before an EC2 instance in AWS using Terraform?
+
+(.)Use implicit dependencies wherever possible by referencing attributes like vpc_id or subnet_id. Terraform's dependency management is robust and works well for most use cases.
+
+resource "aws_vpc" "example" {
+  cidr_block = "10.0.0.0/16"
+  tags = {
+    Name = "example-vpc"
+  }
+}
+
+resource "aws_subnet" "example" {
+  vpc_id            = aws_vpc.example.id
+  cidr_block        = "10.0.1.0/24"
+  availability_zone = "us-east-1a"
+}
+
+resource "aws_instance" "example" {
+  ami           = "ami-0c55b159cbfafe1f0" # Example AMI
+  instance_type = "t2.micro"
+  subnet_id     = aws_subnet.example.id
+
+  tags = {
+    Name = "example-instance"
+  }
+}
+->In this example:
+
+The aws_instance resource depends on the aws_subnet, which in turn depends on the aws_vpc. Terraform understands this dependency chain implicitly.
+
+(.)Use depends_on only when necessary (e.g., for indirect dependencies or when resources do not have explicit relationships).
+
+resource "aws_vpc" "example" {
+  cidr_block = "10.0.0.0/16"
+  tags = {
+    Name = "example-vpc"
+  }
+}
+
+resource "aws_instance" "example" {
+  ami           = "ami-0c55b159cbfafe1f0" # Example AMI
+  instance_type = "t2.micro"
+  subnet_id     = "subnet-12345678"       # Assume this is a pre-existing subnet
+
+  depends_on = [aws_vpc.example]
+
+  tags = {
+    Name = "example-instance"
+  }
+}
+->In this case, even though there's no direct reference to the VPC, the depends_on argument forces Terraform to create the VPC before the EC2 instance.
+
 ###############################################################################################
 
 Linux
